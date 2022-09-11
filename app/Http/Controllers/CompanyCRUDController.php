@@ -11,51 +11,44 @@ class CompanyCRUDController extends Controller
     /**
      * Display a listing of the resource.
      *
-     * @return \Illuminate\Http\Response
      */
     public function index()
     {
-        $data['companies'] = Company::orderBy('id','desc')->paginate(5);
-        return view('companies.index', $data);
+        // $data['companies'] = Company::orderBy('id','desc')->paginate(5);
+        // return view('companies.index', $data);
+        $company = Company::all();
+        return response()->json([
+            'company'=>$company,
+            'message'=>'All contacts successfully displayed',
+            'code'=>200
+        ]);
     }
 
     /**
      * Show the form for creating a new resource.
      *
-     * @return \Illuminate\Http\Response
      */
     public function create()
     {
         return view('companies.create');
     }
 
-    /**
-     * Store a newly created resource in storage.
-     *
-     * @param  \Illuminate\Http\Request  $request
-     * @return \Illuminate\Http\Response
-     */
-    public function store(Request $request)
-    {
-        $request->validate([
-            'name' => 'required',
-            'email' => 'required',
-            'address' => 'required'
-            ]);
-            $company = new Company;
-            $company->name = $request->name;
-            $company->email = $request->email;
-            $company->address = $request->address;
-            $company->save();
-            return redirect()->route('companies.index')
-            ->with('success','Company has been created successfully.');
+    public function AddCompany(Request $request){
+        $company = new Company;
+        $company->name = $request->name;
+        $company->email = $request->email;
+        $company->address = $request->address;
+        $company->save();
+        return response()->json([
+            'message'=>'New company created successfully',
+            'code'=>200
+        ]);
     }
 
     /**
      * Display the specified resource.
      *
-     * @param  int  $id
-     * @return \Illuminate\Http\Response
+
      */
     public function show(Company $company)
     {
@@ -67,8 +60,7 @@ class CompanyCRUDController extends Controller
     /**
      * Show the form for editing the specified resource.
      *
-     * @param  int  $id
-     * @return \Illuminate\Http\Response
+
      */
     public function edit(Company $company)
     {
@@ -78,9 +70,6 @@ class CompanyCRUDController extends Controller
     /**
      * Update the specified resource in storage.
      *
-     * @param  \Illuminate\Http\Request  $request
-     * @param  int  $id
-     * @return \Illuminate\Http\Response
      */
     public function update(Request $request, $id)
     {
@@ -100,9 +89,6 @@ class CompanyCRUDController extends Controller
 
     /**
      * Remove the specified resource from storage.
-     *
-     * @param  int  $id
-     * @return \Illuminate\Http\Response
      */
     public function destroy(Company $company)
     {

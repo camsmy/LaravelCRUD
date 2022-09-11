@@ -15,11 +15,11 @@ use App\Http\Controllers\ProductsController;
 |
 */
 
-// Route::get('/', function () {
-//     return view('welcome');
-// });
+Route::get('/', function () {
+    return view('app');
+});
 
-Route::resource('companies', CompanyCRUDController::class);
-// Route::resource('product', ProductsController::class);
-Route::get('product/{id}/create', [ProductsController::class,'create']);
-Route::post('product/{id}/store', [ProductsController::class,'store']);
+// Route::resource('companies', CompanyCRUDController::class);
+// // Route::resource('product', ProductsController::class);
+// Route::get('product/{id}/create', [ProductsController::class,'create']);
+// Route::post('product/{id}/store', [ProductsController::class,'store']);
