@@ -17,6 +17,8 @@
                     <td>
                         <router-link class="btn btn-primary"
                         :to="{name:'EditCompany', params:{id:companies.id}}">Edit</router-link>
+                        <router-link class="btn btn-secondary"
+                        :to="{name:'ViewCompany', params:{id:companies.id}}">View</router-link>
                         <button type="submit" class="btn btn-danger"
                         @click.prevent="delete_company(companies.id)">Delete</button>
                     </td>

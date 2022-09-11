@@ -10,8 +10,7 @@ class CompanyCRUDController extends Controller
 {
     public function index()
     {
-        // $data['companies'] = Company::orderBy('id','desc')->paginate(5);
-        // return view('companies.index', $data);
+ 
         $company = Company::all();
         return response()->json([
             'company'=>$company,
@@ -69,5 +68,14 @@ class CompanyCRUDController extends Controller
                 'code'=>200
             ]);
         }
+    }
+
+    public function ViewCompany($id){
+        $company = Company::find($id);
+        return response()->json([
+            $company->productcompany,
+            'message' => "ok",
+            'code'=>200
+        ]);
     }
 }

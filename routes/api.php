@@ -45,6 +45,10 @@ Route::get('/EditCompany/{id}',[CompanyCRUDController::class,'EditCompany']);
 Route::delete('delete_company/{id}',[CompanyCRUDController::class,'delete_company']);
 Route::post('updateCompany/{id}',[CompanyCRUDController::class,'updateCompany']);
 
+
+Route::get('ViewCompany/{id}', [CompanyCRUDController::class,'ViewCompany']);
+
+
 // // Route::resource('product', ProductsController::class);
 // Route::get('product/{id}/create', [ProductsController::class,'create']);
 // Route::post('product/{id}/store', [ProductsController::class,'store']);
