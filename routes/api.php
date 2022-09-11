@@ -41,6 +41,10 @@ use App\Http\Controllers\ProductsController;
 // from web.php routes
 Route::get('/index', [CompanyCRUDController::class,'index']);
 Route::post('/AddCompany', [CompanyCRUDController::class,'AddCompany']);
+Route::get('/EditCompany/{id}',[CompanyCRUDController::class,'EditCompany']);
+Route::delete('delete_company/{id}',[CompanyCRUDController::class,'delete_company']);
+Route::post('updateCompany/{id}',[CompanyCRUDController::class,'updateCompany']);
+
 // // Route::resource('product', ProductsController::class);
 // Route::get('product/{id}/create', [ProductsController::class,'create']);
 // Route::post('product/{id}/store', [ProductsController::class,'store']);

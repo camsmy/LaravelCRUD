@@ -16,7 +16,9 @@
                     <td>{{companies.address}}</td>
                     <td>
                         <router-link class="btn btn-primary"
-                        :to="{name:'AddCompany', params:{id:companies.id}}">Edit</router-link>
+                        :to="{name:'EditCompany', params:{id:companies.id}}">Edit</router-link>
+                        <button type="submit" class="btn btn-danger"
+                        @click.prevent="delete_company(companies.id)">Delete</button>
                     </td>
                 </tr>
             </tbody>
@@ -42,6 +44,23 @@ import axios from 'axios'
                 try{
                     await axios.get(url).then(response=>{
                         this.company = response.data.company
+                    })
+                }catch(error){
+                    console.log(`error:  ${error}`)
+                }
+            },
+
+            async delete_company(id){
+                let url = `http://127.0.0.1:8000/api/delete_company/${id}`
+                try{
+                    await axios.delete(url).then(response=>{
+                        if(response.data.code===200){
+                            // console.log(response.data.message)
+                            alert(response.data.message)
+                            this.getCompany()
+                        }else{
+                            console.log('wrong id tatement')
+                        }
                     })
                 }catch(error){
                     console.log(`error:  ${error}`)

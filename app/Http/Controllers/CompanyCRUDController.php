@@ -8,10 +8,6 @@ use App\Models\Company;
 
 class CompanyCRUDController extends Controller
 {
-    /**
-     * Display a listing of the resource.
-     *
-     */
     public function index()
     {
         // $data['companies'] = Company::orderBy('id','desc')->paginate(5);
@@ -22,15 +18,6 @@ class CompanyCRUDController extends Controller
             'message'=>'All contacts successfully displayed',
             'code'=>200
         ]);
-    }
-
-    /**
-     * Show the form for creating a new resource.
-     *
-     */
-    public function create()
-    {
-        return view('companies.create');
     }
 
     public function AddCompany(Request $request){
@@ -45,55 +32,42 @@ class CompanyCRUDController extends Controller
         ]);
     }
 
-    /**
-     * Display the specified resource.
-     *
-
-     */
-    public function show(Company $company)
+    public function EditCompany($id)
     {
-        $company = Company::find($company->id);
-        return view('companies.show')->with('company',$company);
-        // return view('companies.show',compact('company'));
+        $company = Company::find($id);
+        return response()->json([
+            $company
+        ]);
     }
 
-    /**
-     * Show the form for editing the specified resource.
-     *
-
-     */
-    public function edit(Company $company)
+    public function updateCompany(Request $request, $id)
     {
-        return view('companies.edit',compact('company'));
-    }
-
-    /**
-     * Update the specified resource in storage.
-     *
-     */
-    public function update(Request $request, $id)
-    {
-        $request->validate([
-            'name' => 'required',
-            'email' => 'required',
-            'address' => 'required',
-            ]);
             $company = Company::find($id);
             $company->name = $request->name;
             $company->email = $request->email;
             $company->address = $request->address;
             $company->save();
-            return redirect()->route('companies.index')
-            ->with('success','Company Has Been updated successfully');
+            return response()->json([
+                'message'=>'Contact updated successfully',
+                'code'=>200
+            ]);
     }
 
-    /**
-     * Remove the specified resource from storage.
-     */
-    public function destroy(Company $company)
+  
+    public function delete_company($id)
     {
-        $company->delete();
-        return redirect()->route('companies.index')
-        ->with('success','Company has been deleted successfully');
+        $company = Company::find($id);
+        if($company){
+            $company->delete();
+            return response()->json([
+                'message' => 'Contact has been deleted',
+                'code'=>200
+            ]);
+        }else{
+            return response()->json([
+                'message' => "Contact with id: $id does not exist",
+                'code'=>200
+            ]);
+        }
     }
 }
