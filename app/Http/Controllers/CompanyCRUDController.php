@@ -74,6 +74,7 @@ class CompanyCRUDController extends Controller
         $company = Company::find($id);
         return response()->json([
             $company->productcompany,
+            'company_id'=> $company->productcompany[0]->company_id,
             'message' => "ok",
             'code'=>200
         ]);

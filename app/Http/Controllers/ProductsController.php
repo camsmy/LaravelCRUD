@@ -8,13 +8,18 @@ use App\Models\ProductCompany;
 class ProductsController extends Controller
 {
     
-    public function create($id)
+    public function NewProduct($id)
     {
         $ProductCompany = ProductCompany::all();
 
-        return view('companies.addnew',[
-             'company_id'=>$id
-         ]);
+        // return view('companies.addnew',[
+        //      'company_id'=>$id
+        //  ]);
+        return response()->json([
+            'company_id'=>$id,
+            'message'=>'Product company get is okay',
+            'code'=>200
+        ]);
     }
 
  
@@ -26,7 +31,9 @@ class ProductsController extends Controller
         $ProductCompany->prod_desc = $request->input('prod_desc');
         $ProductCompany->save();
 
-        return redirect()->route('companies.index')
-            ->with('success','A new product has been added successfully.');
+        return response()->json([
+            'message'=>'New company created successfully',
+            'code'=>200
+        ]);
     }
 }

@@ -47,8 +47,8 @@ Route::post('updateCompany/{id}',[CompanyCRUDController::class,'updateCompany'])
 
 
 Route::get('ViewCompany/{id}', [CompanyCRUDController::class,'ViewCompany']);
-
-
+Route::get('ViewCompany/{id}/NewProduct', [ProductsController::class,'NewProduct']);
+Route::post('NewProduct/{id}/store', [ProductsController::class,'store']);
 // // Route::resource('product', ProductsController::class);
 // Route::get('product/{id}/create', [ProductsController::class,'create']);
 // Route::post('product/{id}/store', [ProductsController::class,'store']);
