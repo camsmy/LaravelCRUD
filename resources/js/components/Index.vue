@@ -1,37 +1,27 @@
 <template>
-    
-        <table class="table table-bordered">
-            <tr>
-                <th>S.No</th>
-                <th>Company Name</th>
-                <th>Company Email</th>
-                <th>Company Address</th>
-                <th width="280px">Action</th>
-            </tr>
-            <tbody v-for="companies in company" :key="companies.id">
-                <tr class="table-active">
-                    <th scope="row">{{companies.id}}</th>
-                    <td>{{companies.name}}</td>
-                    <td>{{companies.email}}</td>
-                    <td>{{companies.address}}</td>
-                    <td>
-                        <router-link class="btn btn-primary"
-                        :to="{name:'EditCompany', params:{id:companies.id}}">Edit</router-link>
-                        <router-link class="btn btn-secondary"
-                        :to="{name:'ViewCompany', params:{id:companies.id}}">View</router-link>
-                        <button type="submit" class="btn btn-danger"
-                        @click.prevent="delete_company(companies.id)">Delete</button>
-                    </td>
-                </tr>
-            </tbody>
-        </table>
-
        <DataTable :value="company" responsiveLayout="scroll"
        :paginator="true" :rows="5"
        paginatorTemplate="CurrentPageReport FirstPageLink PrevPageLink PageLinks NextPageLink LastPageLink RowsPerPageDropdown"
-            :rowsPerPageOptions="[10,20,50]"
+            :rowsPerPageOptions="[5,10,20,50]"
             currentPageReportTemplate="Showing {first} to {last} of {totalRecords}"
+
+
+            v-model:selection="selectedCompany" dataKey="id" 
+            :filters="filters"
             >
+
+
+                <template #header>
+                    <div class="table-header flex flex-column md:flex-row md:justiify-content-between">
+						<span class="p-input-icon-left">
+                            <i class="pi pi-search" />
+                            <InputText v-model="filters['global'].value" placeholder="Search..." />
+                        </span>
+					</div>
+                </template>
+
+
+
             <Column field="id" header="S.No"
             >
             </Column>
@@ -71,13 +61,13 @@ import axios from 'axios'
         data(){
             return{
                 company:[],
-                filters1: {},
-                selectedCustomer1:null,
+                filters: {},
+                selectedCompany:null,
             }
         },
         created(){
                 this.getCompany(),
-                this.initFilters1();
+                this.initFilters();
 
         },
         methods:{
@@ -109,9 +99,9 @@ import axios from 'axios'
                 }
             },
 
-            initFilters1() {
-            this.filters1 = {
-                'global': {value: null, matchMode: FilterMatchMode.CONTAINS}
+            initFilters() {
+            this.filters = {
+                'global': {value: null, matchMode: FilterMatchMode.CONTAINS},
             }
         },
         },
