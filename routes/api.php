@@ -2,6 +2,8 @@
 
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
+use App\Http\Controllers\CompanyCRUDController;
+use App\Http\Controllers\ProductsController;
 
 /*
 |--------------------------------------------------------------------------
@@ -14,6 +16,13 @@ use Illuminate\Support\Facades\Route;
 |
 */
 
-Route::middleware('auth:sanctum')->get('/user', function (Request $request) {
-    return $request->user();
-});
+Route::get('/index', [CompanyCRUDController::class,'index']);
+Route::post('/AddCompany', [CompanyCRUDController::class,'AddCompany']);
+Route::get('/EditCompany/{id}',[CompanyCRUDController::class,'EditCompany']);
+Route::delete('delete_company/{id}',[CompanyCRUDController::class,'delete_company']);
+Route::post('updateCompany/{id}',[CompanyCRUDController::class,'updateCompany']);
+
+
+Route::get('ViewCompany/{id}', [CompanyCRUDController::class,'ViewCompany']);
+Route::get('ViewCompany/{id}/NewProduct', [ProductsController::class,'NewProduct']);
+Route::post('NewProduct/{id}/store', [ProductsController::class,'store']);
