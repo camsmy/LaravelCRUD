@@ -2,6 +2,7 @@
 
 @section('content')
 
+        <Table></Table>
         <table class="table table-bordered">
             <tr>
                 <th>S.No</th>
