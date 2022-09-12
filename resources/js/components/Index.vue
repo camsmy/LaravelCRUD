@@ -25,20 +25,60 @@
                 </tr>
             </tbody>
         </table>
+
+       <DataTable :value="company" responsiveLayout="scroll"
+       :paginator="true" :rows="5"
+       paginatorTemplate="CurrentPageReport FirstPageLink PrevPageLink PageLinks NextPageLink LastPageLink RowsPerPageDropdown"
+            :rowsPerPageOptions="[10,20,50]"
+            currentPageReportTemplate="Showing {first} to {last} of {totalRecords}"
+            >
+            <Column field="id" header="S.No"
+            >
+            </Column>
+            <Column field="name" header="Company Name"
+            filterMatchMode="contains"
+            ></Column>
+            <Column field="email" header="Company Email"
+            filterMatchMode="contains"
+            ></Column>
+            <Column field="address" header="Company Address"
+            filterMatchMode="contains"
+            ></Column>
+            <Column field="id" header="Actions">
+            <template #body="slotProps">
+                <router-link class="btn btn-secondary"
+                        :to="{name:'ViewCompany', params:{id:slotProps.data.id}}">View</router-link>
+                <router-link class="btn btn-primary"
+                        :to="{name:'EditCompany', params:{id:slotProps.data.id}}">Edit</router-link>
+                 <Button label="Delete" class="p-button-danger"
+                @click.prevent="delete_company(slotProps.data.id)" />
+            </template>
+            </Column>
+            <template #empty>
+                No customers found.
+            </template>
+        </DataTable>
+
 </template>
 
 <script>
+import { FilterMatchMode } from 'primevue/api';
 import axios from 'axios'
+
     export default {
         name: 'Index',
         
         data(){
             return{
-                company:[]
+                company:[],
+                filters1: {},
+                selectedCustomer1:null,
             }
         },
         created(){
-                this.getCompany()
+                this.getCompany(),
+                this.initFilters1();
+
         },
         methods:{
             async getCompany(){
@@ -67,7 +107,13 @@ import axios from 'axios'
                 }catch(error){
                     console.log(`error:  ${error}`)
                 }
+            },
+
+            initFilters1() {
+            this.filters1 = {
+                'global': {value: null, matchMode: FilterMatchMode.CONTAINS}
             }
+        },
         },
         mounted(){
             console.log("index is mounted")
