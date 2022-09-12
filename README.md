@@ -1,11 +1,15 @@
+# SPA CRUD WITH PRIMEVUE
 
-Install dependencies
+## **Install dependencies**
 
-  npm install
+      npm install
+
   or
-  yarn install
 
-Start the server
-   npm run build
-  npm run dev
-  php artisan serve
+      yarn install
+
+## **Start the server**
+
+>  1. `npm run build`  
+>  2.  `npm run dev`  
+>  3.  `php artisan serve`
